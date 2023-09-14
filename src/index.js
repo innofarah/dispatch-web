@@ -52,7 +52,11 @@ let heliaInstance = null
 const instantiateHeliaNode = async () => {
     // application-specific data lives in the datastore
     const datastore = new DatastoreCore.MemoryDatastore()
-    const blockstore = new BlockstoreCore.MemoryBlockstore()
+    //const blockstore = new BlockstoreCore.MemoryBlockstore()
+
+    //const datastore = new DatastoreIdb.IDBDatastore()
+    const blockstore = new BlockstoreIdb.IDBBlockstore()
+    await blockstore.open()
 
     if (heliaInstance != null) {
         return heliaInstance
@@ -79,7 +83,7 @@ const updateDiscoveredPeers = () => {
 
 async function addFile() {
     const textEncoder = new TextEncoder()
-    const cid = await heliaFs.addFile({ content: textEncoder.encode('Hello world!') })
+    const cid = await heliaFs.addFile({ content: textEncoder.encode('Do not go gentle into that good night. rage. rage against the dying of the light') })
     console.log('successfully stored', cid.toString())
     return cid.toString()
 }
