@@ -14,12 +14,26 @@
         </div>
         <h1 id="status">Node status: <span id="statusValue">Not started</span></h1>
         <div id="nodeInfo">
-            <h3>IDL <span id="nodeId">unknown</span></h3>
+            <h3>Node ID <span id="nodeId">unknown</span></h3>
             <h3>Discovered Peers: <span id="discoveredPeerCount">0</span></h3>
             <h3>Connected Peers: <span id="connectedPeerCount">0</span></h3>
         </div>
-
         <hr />
+
+        <div>
+            <h3>Publish normal file</h3>
+            <textarea id="filetext"></textarea>
+            <button id="publishfile">Publish</button>
+            <span id="publishresult">result of publish</span>
+        </div>
+
+        <div>
+            <h3>Get normal file (via cid)</h3>
+            <input id="getcid">
+            <button id="getfile">Get</button></br></br>
+            <textarea id="resultfile" rows=""></textarea>
+        </div>
+
     </body>
 
   <script src="https://cdn.jsdelivr.net/npm/helia@^1.0.0/dist/index.min.js" defer></script>

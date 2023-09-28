@@ -25,12 +25,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     nodeIdEl.innerHTML = id
 
 
+
+    document.getElementById("publishfile").addEventListener("click", publishFile);
+    document.getElementById("getfile").addEventListener("click", getFile)
+
     addFile().then(async (cid) => {
         await catFile(cid)
     })
 
     const d = await HeliaDagJson.dagJson(helia)
-   // console.log(d)
+    // console.log(d)
 
     const object1 = { hello: 'world' }
     const myImmutableAddress1 = await d.add(object1)
@@ -90,8 +94,25 @@ async function addFile() {
 
 async function catFile(cid) {
     const textDecoder = new TextDecoder()
+    let result = ""
     for await (const data of heliaFs.cat(cid)) {
+        result += textDecoder.decode(data)
         console.log(textDecoder.decode(data))
         console.log("successfully catttted the data stored previously")
     }
+    return result
+}
+
+async function publishFile() {
+    const textEncoder = new TextEncoder()
+    const fileText = document.getElementById("filetext").value
+    const cid = await heliaFs.addFile({ content: textEncoder.encode(fileText) })
+    document.getElementById("publishresult").innerHTML = cid.toString()
+    return cid.toString()
+}
+
+async function getFile() {
+    const cid = document.getElementById("getcid").value
+    const result = await catFile(cid)
+    document.getElementById("resultfile").value = result
 }
